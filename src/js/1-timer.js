@@ -16,6 +16,7 @@ labels.forEach(item => (item.textContent = item.textContent.toUpperCase()));
 
 let userSelectedDate;
 let dateNow;
+let timerId; // Додамо змінну для зберігання ID таймера
 
 btnStart.disabled = true;
 
@@ -25,16 +26,17 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    //console.log(selectedDates[0]);
     userSelectedDate = selectedDates[0];
-    dateNow = new Date();
+    dateNow = new Date(); // Оновлюємо поточний час при закритті календаря
+    console.log('onClose - userSelectedDate:', userSelectedDate);
+    console.log('onClose - dateNow:', dateNow);
     if (userSelectedDate < dateNow) {
-      //window.alert('Please choose a date in the future');
       iziToast.show({
         color: 'red',
         position: 'topRight',
         message: 'Please choose a date in the future',
       });
+      btnStart.disabled = true; // Блокуємо кнопку, якщо дата в минулому
     } else {
       btnStart.disabled = false;
       valueTime.forEach((item, index) => (valueTime[index].textContent = '00'));
@@ -49,20 +51,24 @@ btnStart.addEventListener('click', onClickStart);
 function onClickStart(event) {
   btnStart.disabled = true;
   selector.disabled = true;
+  console.log('onClickStart - userSelectedDate:', userSelectedDate);
+  console.log('onClickStart - dateNow:', dateNow);
   let diffDate = userSelectedDate - dateNow;
-  let difference = convertMs(diffDate);
+  console.log('onClickStart - diffDate:', diffDate);
 
   if (diffDate > 0) {
-    const timerId = setInterval(() => {
-      countDown(diffDate);
-      diffDate -= 1000; // Коректно обчислюємо залишок часу
+    countDown(diffDate);
+    timerId = setInterval(() => {
+      diffDate -= 1000;
 
       if (diffDate <= 0) {
-        valueTime.forEach(item => (item.textContent = '00')); // Обнуляємо таймер
+        valueTime.forEach(item => (item.textContent = '00'));
         selector.disabled = false;
-        clearInterval(timerId); // Зупиняємо таймер, коли час вийшов
+        clearInterval(timerId);
         return;
       }
+
+      countDown(diffDate);
     }, 1000);
   }
 }
@@ -75,20 +81,14 @@ function countDown(value) {
 }
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
-
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = pad(Math.floor(ms / day));
-  // Remaining hours
   const hours = pad(Math.floor((ms % day) / hour));
-  // Remaining minutes
   const minutes = pad(Math.floor(((ms % day) % hour) / minute));
-  // Remaining seconds
   const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
