@@ -1,0 +1,86 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 156px;
+}
+
+.form > label:first-child {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+.form > label > input {
+  border: 1px solid #808080;
+  border-radius: 4px;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.form > label > input:hover {
+  border: 1px solid #000;
+  border-radius: 4px;
+  width: 360px;
+  height: 40px;
+}
+
+.form > label > input:focus {
+  outline: none;
+  border: 1px solid #4e75ff;
+  border-radius: 4px;
+  width: 360px;
+  height: 40px;
+}
+
+fieldset {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  stroke-width: 1px;
+  stroke: #808080;
+}
+
+legend {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+  text-align: left;
+}
+
+label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+button {
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 360px;
+  height: 40px;
+  border: none;
+  background: #4e75ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
